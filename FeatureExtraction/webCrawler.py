@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-urls = ["http://www.gigaspaces.com/","http://www.mimio.com/"]
+urls = ["http://www.performanceschool.org","http://www.directionjournal.com/"]
 for url in urls:
+    print(url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
 
@@ -27,4 +28,4 @@ for url in urls:
             if meta.attrs['property'] == 'og:keywords':
                 print('k2')
                 print(meta.attrs['content'])
-        print(title[0].string)
+        print("title",title[0].string)

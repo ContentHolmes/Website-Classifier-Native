@@ -22,13 +22,6 @@ def dataExtractor(category):
     return urls
 
 
-classNo = {
-    "Adult":1,
-    "Arts":2,
-    "Computers":3,
-    "Health":4
-}
-
 regexp = '\W+'
 wordCount = defaultdict(int)
 lemmatizer = WordNetLemmatizer()
@@ -37,14 +30,13 @@ stopWords = set(nltk.corpus.stopwords.words('english'))
 
 def urlExtractor(category):
     urls = dataExtractor(category)
-    label = class_no[category]
 
-    with open("wordsPerCategory/words_"+category,'w') as file_out:
+    with open("wordsPerCategory/words_"+category,'w') as fileOut:
         
-        writer = csv.writer(file_out)
+        writer = csv.writer(fileOut)
         urlWords = []
 
-        print("Extracting Url data...")
+        print("Extracting url data...")
         for url in urls:
             response = requests.get(url)
             soup = BeautifulSoup(response.text, "html.parser")
@@ -90,4 +82,4 @@ def urlExtractor(category):
             rowNew = [word] + [float(wordCount[word])/maxValue]
             writer.writerow(rowNew)
 
-urlExtractor("Computers")
+# urlExtractor("Health")
