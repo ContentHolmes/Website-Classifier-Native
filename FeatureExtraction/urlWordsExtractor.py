@@ -12,7 +12,7 @@ from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 def dataExtractor(category):
-    fd = open("../Data/data_" + category + ".csv",'r')
+    fd = open("../Data/data1_" + category + ".csv",'r')
     urls = []
     for line in fd:
         lineContent = line.split(',')
@@ -37,29 +37,35 @@ def urlExtractor(category):
         urlWords = []
 
         print("Extracting url data...")
+        i = 1
         for url in urls:
-            response = requests.get(url)
-            soup = BeautifulSoup(response.text, "html.parser")
+            try:
+                response = requests.get(url)
+                soup = BeautifulSoup(response.text, "html.parser")
 
-            metas = soup.find_all('meta')
-            title = soup.find_all('title')
+                metas = soup.find_all('meta')
+                title = soup.find_all('title')
 
-            for meta in metas:
-                if 'name' in meta.attrs:
-                    if meta.attrs['name'] == 'description':
-                        urlWords += re.split(regexp,meta.attrs['content'])
+                for meta in metas:
+                    if 'name' in meta.attrs:
+                        if meta.attrs['name'] == 'description':
+                            urlWords += re.split(regexp,meta.attrs['content'])
 
-                    if meta.attrs['name'] == 'keywords':
-                        urlWords += re.split(regexp,meta.attrs['content'])
+                        if meta.attrs['name'] == 'keywords':
+                            urlWords += re.split(regexp,meta.attrs['content'])
 
-                if 'property' in meta.attrs:
-                    if meta.attrs['property'] == 'og:description':
-                        urlWords += re.split(regexp,meta.attrs['content'])
+                    if 'property' in meta.attrs:
+                        if meta.attrs['property'] == 'og:description':
+                            urlWords += re.split(regexp,meta.attrs['content'])
 
-                    if meta.attrs['property'] == 'og:keywords':
-                        urlWords += re.split(regexp,meta.attrs['content'])
+                        if meta.attrs['property'] == 'og:keywords':
+                            urlWords += re.split(regexp,meta.attrs['content'])
 
-            urlWords += re.split(regexp,title[0].string)
+                urlWords += re.split(regexp,title[0].string)
+                print("Url "+ str(i) + " complete")
+                i+=1
+            except:
+                print("Site can't be accessed.")
             
         print("Lemmatizing Words...")
         for word in urlWords:
@@ -82,4 +88,20 @@ def urlExtractor(category):
             rowNew = [word] + [float(wordCount[word])/maxValue]
             writer.writerow(rowNew)
 
-# urlExtractor("Health")
+urlExtractor("Arts")
+print("Arts done")
+
+urlExtractor("Business")
+print("Business done")
+
+urlExtractor("Computers")
+print("Computers done")
+
+urlExtractor("Games")
+print("Games done")
+
+urlExtractor("Health")
+print("Health done")
+
+urlExtractor("Home")
+print("Home done")
