@@ -18,4 +18,4 @@ In the given classifier, Machine-Learning techniques have been used to classify 
 - Sports
 
 ## Dataset
-The DMOZ dataset has been used for the training purpose. The dataset contains the URLs for each category. A web crawler is used on these URLs to get the keywords and the description of the website.
+The DMOZ dataset has been used for the training purpose. The dataset contains the URLs for each category. A web crawler is used on these URLs to get the keywords and the description of the websites.
