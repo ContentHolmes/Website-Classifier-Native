@@ -1,1 +1,18 @@
 # Website-Classification
+
+In the given classifier, Machine-Learning techniques have been used to classify a website into one of the given categories in Real Time without even the need to download the webpage. The URL of the website is used to extract its contents. Text processing libraries available in python are used to lemmatize the words. Then the text classification technique using Bag-of-Words model is applied to extract the feature vector from the text in the website. This feature vector is then fed into an SVM which then accordingly classifies the website into one of the following categories:
+- Adult
+- Arts
+- Business
+- Computers
+- Games
+- Health
+- Home
+- Kids
+- News
+- Recreation
+- Reference
+- Science
+- Shopping
+- Society
+- Sports
